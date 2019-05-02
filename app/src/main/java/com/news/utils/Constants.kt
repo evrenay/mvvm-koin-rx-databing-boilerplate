@@ -11,7 +11,6 @@ const val DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
 
 const val TIMEOUT : Long =60
 
-const val STORE_LINK = "https://play.google.com/store/apps/details?id=com.detoksdiyetleri"
 
 
 
