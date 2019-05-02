@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">NewsApplication</string>
+
+
+    <string name="seconds_ago">%1$s saniye önce</string>
+    <string name="minutes_ago">%1$s dakika önce</string>
+    <string name="hours_ago">%1$s saat önce</string>
+    <string name="days_ago">%1$s gün önce</string>
+    <string name="months_ago">%1$s ay önce</string>
+
+</resources>
