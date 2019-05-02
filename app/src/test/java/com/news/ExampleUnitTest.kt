@@ -1,4 +1,4 @@
-package com.cikmissorular
+package com.news
 
 import org.junit.Test
 
