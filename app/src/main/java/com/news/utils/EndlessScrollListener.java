@@ -15,15 +15,14 @@ public class EndlessScrollListener extends RecyclerView.OnScrollListener {
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-        LinearLayoutManager manager = (LinearLayoutManager)recyclerView.getLayoutManager();
+        LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
         visibleItemCount = manager.getChildCount();
         totalItemCount = manager.getItemCount();
         pastVisiblesItems = manager.findFirstVisibleItemPosition();
 
 
-        if (loading)
-        {
-            if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+        if (loading) {
+            if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                 loading = false;
                 refreshList.onRefresh();
             }

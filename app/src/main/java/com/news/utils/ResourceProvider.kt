@@ -22,7 +22,6 @@ class ResourceProvider(val context: Context) {
     }
 
 
-
     fun getStringArray(resId: Int): Array<String> {
         return context.resources.getStringArray(resId)
     }
@@ -39,7 +38,4 @@ class ResourceProvider(val context: Context) {
     fun getDrawable(resId: Int): Drawable? {
         return ContextCompat.getDrawable(context, resId)
     }
-
-
-
 }

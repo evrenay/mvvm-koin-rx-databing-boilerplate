@@ -10,15 +10,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
 
-abstract class BaseDialog<VM : BaseViewModel,DB: ViewDataBinding>(val activity: AppCompatActivity) {
+abstract class BaseDialog<VM : BaseViewModel, DB : ViewDataBinding>(val activity: AppCompatActivity) {
 
     var alertDialog: AlertDialog
         protected set
 
+    private var dialogView: View? = null
 
-    protected var dialogView: View? = null
-
-    var refreshLayout : SwipeRefreshLayout?=null
+    var refreshLayout: SwipeRefreshLayout? = null
 
     var viewModel: VM
 
@@ -38,21 +37,23 @@ abstract class BaseDialog<VM : BaseViewModel,DB: ViewDataBinding>(val activity: 
         alertDialog.show()
     }
 
-
-
-    protected  abstract fun setupDialog()
+    protected abstract fun setupDialog()
 
     protected abstract fun instantiateViewModel(): VM
 
-
     @LayoutRes
-    protected abstract fun getLayoutRes() : Int
+    protected abstract fun getLayoutRes(): Int
 
     init {
         val dialogBuilder = onCreateAlertDialogBuilder()
-        val inflater = activity.getLayoutInflater()
+        val inflater = activity.layoutInflater
         viewModel = instantiateViewModel()
-        binding = DataBindingUtil.inflate(inflater, getLayoutRes(),  activity.findViewById(android.R.id.content) as ViewGroup, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            getLayoutRes(),
+            activity.findViewById(android.R.id.content) as ViewGroup,
+            false
+        )
         dialogView = binding.root
         dialogBuilder.setView(dialogView)
         alertDialog = dialogBuilder.create()
@@ -62,14 +63,13 @@ abstract class BaseDialog<VM : BaseViewModel,DB: ViewDataBinding>(val activity: 
     }
 
 
-    open fun onCreateAlertDialogBuilder() : AlertDialog.Builder{
+    private fun onCreateAlertDialogBuilder(): AlertDialog.Builder {
         return AlertDialog.Builder(activity)
     }
 
 
-    open fun showError(){
-        viewModel.errorString.observe(activity, Observer {
-            errString->
+    fun showError() {
+        viewModel.errorString.observe(activity, Observer { errString ->
             //InfoAlertDialog(activity,errString!!,{}).showDialog()
 
 
@@ -77,24 +77,19 @@ abstract class BaseDialog<VM : BaseViewModel,DB: ViewDataBinding>(val activity: 
     }
 
 
-    open fun initializeRefreshLayout(){
-        viewModel.swipeLoadingStatus.observe(activity, Observer {
-            status->
-            if(refreshLayout!=null){
-                if(status!!){
-                    refreshLayout!!.post({ refreshLayout!!.setRefreshing(true) })
-                }
-                else{
-                    refreshLayout!!.post({ refreshLayout!!.setRefreshing(false) })
+    private fun initializeRefreshLayout() {
+        viewModel.swipeLoadingStatus.observe(activity) { status ->
+            if (refreshLayout != null) {
+                if (status!!) {
+                    refreshLayout!!.post { refreshLayout!!.isRefreshing = true }
+                } else {
+                    refreshLayout!!.post { refreshLayout!!.isRefreshing = false }
                 }
             }
 
-        })
+        }
     }
 
-    open fun showNoItemView(status : Boolean){
-
-    }
-
+    open fun showNoItemView(status: Boolean) {}
 
 }

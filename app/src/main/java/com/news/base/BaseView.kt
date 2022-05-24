@@ -12,8 +12,6 @@ interface BaseView {
      */
     fun getContext(): Context
 
-
-
     /**
      * Displays the loading indicator of the view
      */
@@ -23,7 +21,6 @@ interface BaseView {
      * Hides the loading indicator of the view
      */
     fun hideLoading()
-
 
 
 }

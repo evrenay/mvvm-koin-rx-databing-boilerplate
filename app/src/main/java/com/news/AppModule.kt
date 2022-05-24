@@ -8,12 +8,10 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
-
 val appModule = module {
-
-
-        single { createNetworkClient(BASE_URL) }
-        single { (get() as Retrofit).create(RemoteNewsApi::class.java) }
-        viewModel { NewsViewModel(get())
+    single { createNetworkClient(BASE_URL) }
+    single { (get() as Retrofit).create(RemoteNewsApi::class.java) }
+    viewModel {
+        NewsViewModel(get())
     }
 }

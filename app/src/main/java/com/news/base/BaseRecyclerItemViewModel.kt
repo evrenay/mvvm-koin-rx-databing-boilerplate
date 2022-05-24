@@ -1,15 +1,12 @@
 package com.news.base
 
 
+abstract class BaseRecyclerItemViewModel<M : BaseModel> : BaseViewModel() {
 
-abstract class BaseRecyclerItemViewModel< M : BaseModel>: BaseViewModel() {
-
-    lateinit var model : M
+    lateinit var model: M
 
     abstract fun setValues()
 
-    open fun clearCache(){
-
-    }
+    open fun clearCache() {}
 
 }

@@ -18,37 +18,46 @@ object DateCalculator {
 
     val HOUR = (3600 * 1000).toLong()
 
-    fun calculateTime(resourceProvider: ResourceProvider,time: String,serverTime:String,format:String): String {
+    fun calculateTime(
+        resourceProvider: ResourceProvider,
+        time: String,
+        serverTime: String,
+        format: String
+    ): String {
         try {
             val sdf = object : SimpleDateFormat(format) {
-                override fun format(date: Date, toAppendTo: StringBuffer, pos: java.text.FieldPosition): StringBuffer {
+                override fun format(
+                    date: Date,
+                    toAppendTo: StringBuffer,
+                    pos: java.text.FieldPosition
+                ): StringBuffer {
                     val toFix = super.format(date, toAppendTo, pos)
                     return toFix.insert(toFix.length - 2, ':')
                 }
             }
-            var createTime = sdf.parse(time)
+            val createTime = sdf.parse(time)
             val now = sdf.parse(serverTime)
 
 
-            val difference = now.time - createTime.time
+            val difference = now!!.time - createTime!!.time
 
             val secondCount = TimeUnit.SECONDS.convert(difference, TimeUnit.MILLISECONDS).toInt()
             if (secondCount < SECONDS_OF_MINUTES)
-                return resourceProvider.getString(R.string.seconds_ago,secondCount.toString())
+                return resourceProvider.getString(R.string.seconds_ago, secondCount.toString())
 
             val minuteCount = TimeUnit.MINUTES.convert(difference, TimeUnit.MILLISECONDS).toInt()
             if (minuteCount < MINUTES_OF_HOUR)
-                return resourceProvider.getString(R.string.minutes_ago,minuteCount.toString())
+                return resourceProvider.getString(R.string.minutes_ago, minuteCount.toString())
 
             val hourCount = TimeUnit.HOURS.convert(difference, TimeUnit.MILLISECONDS).toInt()
             if (hourCount < HOURS_OF_DAY)
-                return resourceProvider.getString(R.string.hours_ago,hourCount.toString())
+                return resourceProvider.getString(R.string.hours_ago, hourCount.toString())
             val dayCount = TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS).toInt()
             if (dayCount < DAYS_OF_MONTHS)
-                return resourceProvider.getString(R.string.days_ago,dayCount.toString())
+                return resourceProvider.getString(R.string.days_ago, dayCount.toString())
 
             val monthCount = dayCount / 30
-            return resourceProvider.getString(R.string.months_ago,monthCount.toString())
+            return resourceProvider.getString(R.string.months_ago, monthCount.toString())
 
         } catch (e: ParseException) {
             e.printStackTrace()

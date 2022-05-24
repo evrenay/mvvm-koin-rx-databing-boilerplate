@@ -35,7 +35,6 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : BaseView
         initializeRefreshLayout()
         showHideLoading()
         showError()
-
     }
 
 
@@ -56,7 +55,6 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : BaseView
                     refreshLayout!!.post { refreshLayout!!.isRefreshing = false }
                 }
             }
-
         }
     }
 
@@ -76,7 +74,5 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : BaseView
         }
     }
 
-    open fun showNoItemView(status: Boolean) {
-
-    }
+    open fun showNoItemView(status: Boolean) {}
 }

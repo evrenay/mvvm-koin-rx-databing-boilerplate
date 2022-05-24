@@ -1,7 +1,9 @@
 package com.news.utils;
 
 import android.content.Context;
+
 import androidx.viewpager.widget.ViewPager;
+
 import android.view.View;
 
 /**

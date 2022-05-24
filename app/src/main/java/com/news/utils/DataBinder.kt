@@ -50,15 +50,6 @@ fun setDividerItemDecoration(view: RecyclerView, dividerItemDecoration: DividerI
 }
 
 
-
-
-
-
-
-
-
-
-
 @BindingAdapter("setToolbarTitle")
 fun setToolbarTitle(view: Toolbar, title: String) {
     view.title = title
@@ -71,20 +62,16 @@ fun isToolbarBackButtonEnable(view: Toolbar, isEnable: Boolean) {
 }
 
 
+@BindingAdapter("app:image_url", "app:image_from_video_url", requireAll = false)
+fun loadImage(v: ImageView, imgUrl: String?, videoUrl: String?) {
 
-
-@BindingAdapter("app:image_url","app:image_from_video_url",requireAll = false)
-fun loadImage(v: ImageView, imgUrl: String?,videoUrl:String?) {
-
-    if (!imgUrl.isNullOrEmpty()){
+    if (!imgUrl.isNullOrEmpty()) {
         Glide.with(v.context).load(imgUrl).into(v)
-    }
-    else if(!videoUrl.isNullOrEmpty()){
-        retriveVideoFrameFromVideo(videoUrl!!,onSuccess = {
-            b ->
+    } else if (!videoUrl.isNullOrEmpty()) {
+        retriveVideoFrameFromVideo(videoUrl!!, onSuccess = { b ->
             v.setImageBitmap(b)
 
-        },onError = {
+        }, onError = {
 
         })
 
@@ -94,25 +81,25 @@ fun loadImage(v: ImageView, imgUrl: String?,videoUrl:String?) {
 @BindingAdapter("app:image_url_without_cache")
 fun loadImageWithoutCache(v: ImageView, imgUrl: String) {
     Glide.with(v.context)
-            .load(imgUrl).apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)).into(v)
+        .load(imgUrl).apply(
+            RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+        ).into(v)
 }
 
 
-
 @BindingAdapter("app:toOutputDateFormat")
-fun toOutputDateFormat(v:TextView,dateStr:String?){
-    if(dateStr!=null){
-        val inputStr = dateStr.toOutputDateFormat("yyyy-MM-dd'T'HH:mm:ss","dd MMM yyy - hh:mm")
+fun toOutputDateFormat(v: TextView, dateStr: String?) {
+    if (dateStr != null) {
+        val inputStr = dateStr.toOutputDateFormat("yyyy-MM-dd'T'HH:mm:ss", "dd MMM yyy - hh:mm")
         v.setText(inputStr)
     }
 }
 
 
-
 @BindingAdapter("app:svgAssetPath")
-fun svgAssetPath(v:WebView,svgAssetPath:String?){
-    if(svgAssetPath!=null){
+fun svgAssetPath(v: WebView, svgAssetPath: String?) {
+    if (svgAssetPath != null) {
         v.showSvgFile(svgAssetPath)
     }
 }
@@ -120,15 +107,10 @@ fun svgAssetPath(v:WebView,svgAssetPath:String?){
 
 @BindingAdapter("visibleGone")
 fun showHide(view: View, show: Boolean?) {
-    if(show!=null){
+    if (show != null) {
         view.visibility = if (show) View.VISIBLE else View.GONE
     }
 }
-
-
-
-
-
 
 
 @BindingAdapter("backgroundResource")
@@ -137,8 +119,8 @@ fun setBackgroundResource(view: View, resource: Int) {
 }
 
 @BindingAdapter("focusChangeListener")
-fun setFocusChangeListener(editText: EditText, focusChangeListener : View.OnFocusChangeListener) {
-    if(focusChangeListener!=null){
+fun setFocusChangeListener(editText: EditText, focusChangeListener: View.OnFocusChangeListener) {
+    if (focusChangeListener != null) {
         editText.setOnFocusChangeListener(focusChangeListener)
     }
 

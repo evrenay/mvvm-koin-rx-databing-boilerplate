@@ -7,42 +7,28 @@ import com.news.network.RemoteNewsApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class NewsViewModel(private  val newsApi: RemoteNewsApi) : BaseViewModel() {
-
-
+class NewsViewModel(private val newsApi: RemoteNewsApi) : BaseViewModel() {
     val newsLiveData = MutableLiveData<List<NewsPublisher>>()
-
-
-    fun getNews(){
+    fun getNews() {
         compositeDisposable.add(newsApi
-                .getNews()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe {
-                  //  loadingStatus.value = true
-                }
-                .doOnTerminate {
-                   // loadingStatus.value = false
-                }
-                .subscribe(
-                        {
-                            response  ->
-                            if(!response.status.equals("ok")){
-                                errorString.value = response.status
-                                return@subscribe
-                            }
-
-                           newsLiveData.value = response.articles
-
-
-
-
-
-
-                        },
-                        {
-
-                        }
-                ))
+            .getNews()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .doOnSubscribe {
+                //  loadingStatus.value = true
+            }
+            .doOnTerminate {
+                // loadingStatus.value = false
+            }
+            .subscribe(
+                { response ->
+                    if (!response.status.equals("ok")) {
+                        errorString.value = response.status
+                        return@subscribe
+                    }
+                    newsLiveData.value = response.articles
+                },
+                {}
+            ))
     }
 }

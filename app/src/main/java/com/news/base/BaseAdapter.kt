@@ -1,5 +1,6 @@
 package com.news.base
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -9,23 +10,34 @@ import android.view.ViewGroup
 
 class BaseAdapter<T : BaseModel>(
 
-        internal var entityList: List<T>,
-        internal var context: Context,
-        internal var viewId: Int,
-        internal var dataId: Int,
-        internal var viewModel: BaseViewModel?,
-        internal var viewModelId: Int,
-        internal var onItemValidate : ((binding: ViewDataBinding,data:T,position:Int) ->Unit)? = null
+    private var entityList: List<T>,
+    internal var context: Context,
+    private var viewId: Int,
+    private var dataId: Int,
+    internal var viewModel: BaseViewModel?,
+    private var viewModelId: Int,
+    private var onItemValidate: ((binding: ViewDataBinding, data: T, position: Int) -> Unit)? = null
 ) : RecyclerView.Adapter<BaseAdapter.BaseViewHolder<T>>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<T> {
-        val binding = DataBindingUtil.inflate<ViewDataBinding>(LayoutInflater.from(parent.context), viewId, parent, false)
+        val binding = DataBindingUtil.inflate<ViewDataBinding>(
+            LayoutInflater.from(parent.context),
+            viewId,
+            parent,
+            false
+        )
         return BaseViewHolder<T>(binding)
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) {
-        holder.bindto(entityList[position], dataId, viewModelId, viewModel,position,onItemValidate)
+        holder.bindTo(
+            entityList[position],
+            dataId,
+            viewModelId,
+            viewModel,
+            position,
+            onItemValidate
+        )
     }
-
 
 
     override fun getItemCount(): Int {
@@ -33,19 +45,27 @@ class BaseAdapter<T : BaseModel>(
     }
 
 
-    fun update(entityList:List<T>) {
+    @SuppressLint("NotifyDataSetChanged")
+    fun update(entityList: List<T>) {
         this.entityList = entityList
         notifyDataSetChanged()
     }
 
-    fun getList() : List<T> {
+    fun getList(): List<T> {
         return entityList
     }
 
-
-    class BaseViewHolder<T : BaseModel>(internal var binding: androidx.databinding.ViewDataBinding) : RecyclerView.ViewHolder(binding.getRoot()) {
-        fun bindto(data: T?, dataId: Int, viewModelId: Int, viewModel: BaseViewModel?, position : Int, onItemValidate : ((binding: ViewDataBinding, data:T, position:Int) ->Unit)? = null) {
-            if(onItemValidate!=null && data!=null) onItemValidate(binding,data,position)
+    class BaseViewHolder<T : BaseModel>(internal var binding: ViewDataBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bindTo(
+            data: T?,
+            dataId: Int,
+            viewModelId: Int,
+            viewModel: BaseViewModel?,
+            position: Int,
+            onItemValidate: ((binding: ViewDataBinding, data: T, position: Int) -> Unit)? = null
+        ) {
+            if (onItemValidate != null && data != null) onItemValidate(binding, data, position)
             if (data != null) binding.setVariable(dataId, data)
             if (viewModel != null) binding.setVariable(viewModelId, viewModel)
             binding.executePendingBindings()

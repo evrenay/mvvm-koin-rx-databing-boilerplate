@@ -8,7 +8,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+
 import androidx.annotation.Nullable;
+
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -92,7 +94,7 @@ public class ViewLoadingDotsBounce extends LinearLayout {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        if(animator!=null){
+        if (animator != null) {
             for (int i = 0; i < OBJECT_SIZE; i++) {
                 if (animator[i].isRunning()) {
                     animator[i].removeAllListeners();
