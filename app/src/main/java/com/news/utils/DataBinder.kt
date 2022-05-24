@@ -3,11 +3,11 @@
 
 package com.news.utils
 
-import android.databinding.BindingAdapter
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
+import androidx.databinding.BindingAdapter
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.widget.Toolbar
 import android.view.View
 import android.webkit.WebView
 import android.widget.EditText
@@ -146,7 +146,7 @@ fun setFocusChangeListener(editText: EditText, focusChangeListener : View.OnFocu
 
 
 @BindingAdapter("app:colorSchemeResources")
-fun bindRefreshColor(swipeRefreshLayout: SwipeRefreshLayout,  vararg colors: Int) {
+fun bindRefreshColor(swipeRefreshLayout: SwipeRefreshLayout, vararg colors: Int) {
     swipeRefreshLayout.setColorSchemeColors(*colors)
 }
 

@@ -1,8 +1,8 @@
 package com.news.ui
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.news.R
 import com.news.base.BaseActivity
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -27,7 +27,11 @@ class NewsActivity() : BaseActivity<NewsViewModel,com.news.databinding.NewsArtic
 
 
         binding.adapter = NewsItemAdapter(this)
-        binding.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        binding.layoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
 
         newsList.getNews()
 

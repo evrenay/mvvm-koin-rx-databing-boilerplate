@@ -1,6 +1,6 @@
 package com.news.ui
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.news.base.BaseViewModel
 import com.news.model.NewsPublisher
 import com.news.network.RemoteNewsApi

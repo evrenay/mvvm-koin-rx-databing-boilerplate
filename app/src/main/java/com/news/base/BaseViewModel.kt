@@ -1,8 +1,8 @@
 package com.news.base
 
-import android.arch.lifecycle.*
-import android.databinding.Observable
-import android.databinding.PropertyChangeRegistry
+import androidx.lifecycle.*
+import androidx.databinding.Observable
+import androidx.databinding.PropertyChangeRegistry
 import io.reactivex.disposables.CompositeDisposable
 
 

@@ -1,12 +1,12 @@
 package com.news.base
 
 import android.app.AlertDialog
-import android.arch.lifecycle.Observer
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.annotation.LayoutRes
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.annotation.LayoutRes
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
 

@@ -17,17 +17,17 @@ import android.os.Handler
 import android.os.Parcelable
 import android.provider.MediaStore
 import android.provider.Settings
-import android.support.annotation.DrawableRes
-import android.support.design.internal.BottomNavigationItemView
-import android.support.design.internal.BottomNavigationMenuView
-import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.TabLayout
-import android.support.media.ExifInterface
-import android.support.v4.app.FragmentManager
-import android.support.v4.graphics.drawable.DrawableCompat
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.PopupMenu
+import androidx.annotation.DrawableRes
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.tabs.TabLayout
+import androidx.exifinterface.media.ExifInterface
+import androidx.fragment.app.FragmentManager
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.viewpager.widget.ViewPager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import android.text.Html
 import android.text.InputFilter
 import android.text.TextUtils
@@ -72,7 +72,7 @@ fun BottomNavigationView.disableShiftMode(){
             item.setPadding(0, 10.convertDpToPixel(this.context), 0, 0);
             // set once again checked value, so view will be updated
 
-            item.setChecked(item.itemData.isChecked)
+            item.itemData?.let { item.setChecked(it.isChecked) }
         }
     } catch (e: NoSuchFieldException) {
         Log.e("BNVHelper", "Unable to get shift mode field", e)
@@ -457,9 +457,14 @@ fun Bitmap.centerCrop() : Bitmap{
 
 
 fun Bitmap.controlImageOrientation(uri : Uri,context: Context) : Bitmap?{
-    var ei = ExifInterface(context.getContentResolver().openInputStream(uri))
-    var orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
-            ExifInterface.ORIENTATION_UNDEFINED);
+    var ei = context.getContentResolver().openInputStream(uri)?.let {
+        ExifInterface(
+            it
+    )
+    }
+    var orientation = ei?.getAttributeInt(
+        ExifInterface.TAG_ORIENTATION,
+        ExifInterface.ORIENTATION_UNDEFINED);
 
     var rotatedBitmap :Bitmap? = null
     when(orientation) {
@@ -479,7 +484,8 @@ fun Bitmap.controlImageOrientation(uri : Uri,context: Context) : Bitmap?{
 
 fun Bitmap.controlImageOrientation(path : String) : Bitmap?{
     var ei = ExifInterface(path)
-    var orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+    var orientation = ei.getAttributeInt(
+        ExifInterface.TAG_ORIENTATION,
                                          ExifInterface.ORIENTATION_UNDEFINED);
 
     var rotatedBitmap :Bitmap? = null

@@ -1,7 +1,7 @@
 package com.news.utils;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class EndlessScrollListener extends RecyclerView.OnScrollListener {
     private boolean loading = true;

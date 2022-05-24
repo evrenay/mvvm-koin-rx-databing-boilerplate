@@ -1,8 +1,8 @@
 package com.news.base
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import java.util.ArrayList
 
 /**
@@ -12,7 +12,7 @@ open class BaseFragmentPagerAdapter(manager: FragmentManager) : FragmentPagerAda
     private val mFragmentList = ArrayList<Fragment>()
     private val mFragmentTitleList = ArrayList<String>()
 
-    override fun getItem(position: Int): android.support.v4.app.Fragment {
+    override fun getItem(position: Int): Fragment {
         return mFragmentList[position]
     }
 
@@ -20,7 +20,7 @@ open class BaseFragmentPagerAdapter(manager: FragmentManager) : FragmentPagerAda
         return mFragmentList.size
     }
 
-    fun addFrag(fragment: android.support.v4.app.Fragment, title: String) {
+    fun addFrag(fragment: Fragment, title: String) {
         mFragmentList.add(fragment)
         mFragmentTitleList.add(title)
     }

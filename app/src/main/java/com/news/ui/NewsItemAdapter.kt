@@ -1,6 +1,6 @@
 package com.news.ui
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.news.R
 import com.news.base.BaseRecyclerAdapter
 import com.news.model.NewsPublisher
