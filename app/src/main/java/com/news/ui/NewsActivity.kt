@@ -1,13 +1,12 @@
 package com.news.ui
 
-import android.arch.lifecycle.Observer
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.news.R
 import com.news.base.BaseActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class NewsActivity() : BaseActivity<NewsViewModel,com.news.databinding.NewsArticlesBinding>() {
+class NewsActivity : BaseActivity<NewsViewModel, com.news.databinding.NewsArticlesBinding>() {
 
     private val newsList: NewsViewModel by viewModel()
 
@@ -16,27 +15,28 @@ class NewsActivity() : BaseActivity<NewsViewModel,com.news.databinding.NewsArtic
     }
 
     override fun getLayoutRes(): Int {
-       return R.layout.news_articles
+        return R.layout.news_articles
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         viewModel = newsList
         super.onCreate(savedInstanceState)
 
-
-
-
         binding.adapter = NewsItemAdapter(this)
-        binding.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        binding.layoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
 
         newsList.getNews()
 
-        newsList.newsLiveData.observe(this, Observer { list->
-            if (list != null){
+        newsList.newsLiveData.observe(this) { list ->
+            if (list != null) {
                 binding.adapter?.update(list)
             }
 
-        })
+        }
     }
 
 }

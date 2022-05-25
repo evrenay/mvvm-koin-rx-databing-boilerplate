@@ -3,7 +3,7 @@ package com.news.utils
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 
 class ResourceProvider(val context: Context) {
 
@@ -22,7 +22,6 @@ class ResourceProvider(val context: Context) {
     }
 
 
-
     fun getStringArray(resId: Int): Array<String> {
         return context.resources.getStringArray(resId)
     }
@@ -39,7 +38,4 @@ class ResourceProvider(val context: Context) {
     fun getDrawable(resId: Int): Drawable? {
         return ContextCompat.getDrawable(context, resId)
     }
-
-
-
 }

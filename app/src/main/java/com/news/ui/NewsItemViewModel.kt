@@ -5,7 +5,7 @@ import com.news.model.NewsPublisher
 
 class NewsItemViewModel : BaseRecyclerItemViewModel<NewsPublisher>() {
 
-    var article : String ?= null
+    var article: String? = null
 
     override fun setValues() {
         article = model.description

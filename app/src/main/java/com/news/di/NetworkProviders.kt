@@ -11,16 +11,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-
 fun createNetworkClient(baseUrl: String) =
-        retrofitClient(baseUrl, httpClient())
+    retrofitClient(baseUrl, httpClient())
 
-class BasicAuthInterceptor() : Interceptor {
+class BasicAuthInterceptor : Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        val newUrl = request.url().newBuilder().addQueryParameter("apiKey", BuildConfig.API_KEY).build()
+        val newUrl =
+            request.url.newBuilder().addQueryParameter("apiKey", BuildConfig.API_KEY).build()
         val newRequest = request.newBuilder().url(newUrl).build()
         return chain.proceed(newRequest)
     }
@@ -41,12 +41,12 @@ private fun httpClient(): OkHttpClient {
 }
 
 private fun retrofitClient(baseUrl: String, httpClient: OkHttpClient): Retrofit =
-        Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .client(httpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
+    Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(httpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
 
 
 

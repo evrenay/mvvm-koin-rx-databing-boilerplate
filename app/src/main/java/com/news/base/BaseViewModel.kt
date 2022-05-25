@@ -1,12 +1,12 @@
 package com.news.base
 
-import android.arch.lifecycle.*
-import android.databinding.Observable
-import android.databinding.PropertyChangeRegistry
+import androidx.lifecycle.*
+import androidx.databinding.Observable
+import androidx.databinding.PropertyChangeRegistry
 import io.reactivex.disposables.CompositeDisposable
 
 
-abstract class BaseViewModel: ViewModel(), Observable, LifecycleObserver {
+abstract class BaseViewModel : ViewModel(), Observable, LifecycleObserver {
 
     var swipeLoadingStatus = MutableLiveData<Boolean>()
 
@@ -19,27 +19,25 @@ abstract class BaseViewModel: ViewModel(), Observable, LifecycleObserver {
     protected val compositeDisposable = CompositeDisposable()
 
 
-
-
-
-
-    open fun onRefresh(){
+    open fun onRefresh() {
 
     }
 
-    fun changeLoadingStatus(status:Boolean){
+    fun changeLoadingStatus(status: Boolean) {
         loadingStatus.value = status
         loadingStatus.value = loadingStatus.value
     }
 
 
     override fun addOnPropertyChangedCallback(
-            callback: Observable.OnPropertyChangedCallback) {
+        callback: Observable.OnPropertyChangedCallback
+    ) {
         callbacks.add(callback)
     }
 
     override fun removeOnPropertyChangedCallback(
-            callback: Observable.OnPropertyChangedCallback) {
+        callback: Observable.OnPropertyChangedCallback
+    ) {
         callbacks.remove(callback)
     }
 

@@ -1,16 +1,15 @@
 package com.news.base
 
-import android.arch.lifecycle.Observer
 import android.content.Context
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.app.AppCompatActivity
-import io.github.inflationx.viewpump.ViewPumpContextWrapper
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
-abstract class BaseActivity<VM : BaseViewModel,DB: ViewDataBinding> : BaseView, AppCompatActivity() {
+abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : BaseView,
+    AppCompatActivity() {
 
     protected lateinit var viewModel: VM
 
@@ -18,7 +17,7 @@ abstract class BaseActivity<VM : BaseViewModel,DB: ViewDataBinding> : BaseView, 
 
     lateinit var binding: DB
 
-    var refreshLayout : SwipeRefreshLayout?=null
+    var refreshLayout: SwipeRefreshLayout? = null
 
     protected abstract fun getViewModel(): Class<VM>
 
@@ -32,22 +31,11 @@ abstract class BaseActivity<VM : BaseViewModel,DB: ViewDataBinding> : BaseView, 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
         binding = DataBindingUtil.setContentView(this, getLayoutRes())
-
-        //progressAlertDialog = ProgressAlertDialog(this)
-
-      //  viewModel = ViewModelProviders.of(this).get(getViewModel())
-
-
         initializeRefreshLayout()
         showHideLoading()
         showError()
-
     }
-
 
 
     override fun getContext(): Context {
@@ -55,48 +43,36 @@ abstract class BaseActivity<VM : BaseViewModel,DB: ViewDataBinding> : BaseView, 
     }
 
     @LayoutRes
-    protected abstract fun getLayoutRes() : Int
-
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(ViewPumpContextWrapper.wrap(base!!));
-    }
+    protected abstract fun getLayoutRes(): Int
 
 
-    open fun initializeRefreshLayout(){
-        viewModel.swipeLoadingStatus.observe(this, Observer {
-            status->
-            if(refreshLayout!=null){
-                if(status!!){
-                    refreshLayout!!.post({ refreshLayout!!.setRefreshing(true) })
-                }
-                else{
-                    refreshLayout!!.post({ refreshLayout!!.setRefreshing(false) })
+    open fun initializeRefreshLayout() {
+        viewModel.swipeLoadingStatus.observe(this) { status ->
+            if (refreshLayout != null) {
+                if (status!!) {
+                    refreshLayout!!.post { refreshLayout!!.isRefreshing = true }
+                } else {
+                    refreshLayout!!.post { refreshLayout!!.isRefreshing = false }
                 }
             }
-
-        })
+        }
     }
 
-    open fun showError(){
-        viewModel.errorString.observe(this, Observer {
-            errString->
-           // InfoAlertDialog(this,errString!!,{}).showDialog()
-        })
+    open fun showError() {
+        viewModel.errorString.observe(this) {
+            // InfoAlertDialog(this,errString!!,{}).showDialog()
+        }
     }
 
-    open fun showHideLoading(){
-        viewModel.loadingStatus.observe(this, Observer {
-            status->
-            if(status!!){
+    open fun showHideLoading() {
+        viewModel.loadingStatus.observe(this) { status ->
+            if (status!!) {
                 showLoading()
-            }
-            else{
+            } else {
                 hideLoading()
             }
-        })
+        }
     }
 
-    open fun showNoItemView(status : Boolean){
-
-    }
+    open fun showNoItemView(status: Boolean) {}
 }
